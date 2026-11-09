@@ -1,5 +1,8 @@
-import api from "../../../services/api";
-import type { LoginFormData, LoginResponse } from "../types/auth.types";
+import type {
+  LoginFormData,
+  LoginResponse,
+} from "../features/auth/types/auth.types";
+import api from "./api";
 
 export const LoginUser = async (
   data: LoginFormData,

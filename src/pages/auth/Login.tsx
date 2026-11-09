@@ -1,7 +1,8 @@
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-import type { LoginFormData } from "../types/auth.types";
-import { LoginUser } from "../services/authService";
+import type { LoginFormData } from "./types/auth.types";
+import { LoginUser } from "../../services/authService";
+
 
 type LoginErrors = {
   username?: string;
