@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-primary: #10283c;
+  --color-bg-secondary: #17384b;
+  --color-bg-third: #15545a;
+  --color-onclick-navbar: #8de0d2;
+  --color-onclick-text: #092f35;
+  --color-gray-navbar: #cbd5e1;
+  --color-green-icon: #087f80;
+  --color-button-iceberg: #d9f4ed;
+  --color-error-red: #b33b45;
+  --color-bg-error: #fff0f0;
+
+  --color-slate-gray: #778692;
+  --color-gray-200: #e5e7eb;
+}
+
+@font-face {
+  font-family: "IRANSansX";
+  src: url("./assets/fonts/IRANSansX-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "IRANSansX";
+  src: url("./assets/fonts/IRANSansX-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+body {
+  font-family: "IRANSansX", sans-serif;
+}
