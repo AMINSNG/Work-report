@@ -1,8 +1,8 @@
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import type { LoginFormData } from "./types/auth.types";
 import { LoginUser } from "../../services/authService";
-
 
 type LoginErrors = {
   username?: string;
@@ -10,6 +10,7 @@ type LoginErrors = {
 };
 
 export default function Login() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<LoginFormData>({
     username: "",
     password: "",
@@ -44,17 +45,24 @@ export default function Login() {
     e.preventDefault();
 
     const isValid = validateForm();
-
     if (!isValid) return;
 
     setLoading(true);
+    setServerError("");
 
     try {
       const result = await LoginUser(formData);
+      localStorage.removeItem("access_token");
+      sessionStorage.removeItem("access_token");
 
+      const storage = formData.rememberMe ? localStorage : sessionStorage;
+
+      storage.setItem("access_token", result.access_token);
       console.log("Login successful:", result);
-    } catch {
-      setServerError("نام کاربری یا رمز عبور اشتباه است.");
+      navigate("/user/dashboard");
+    } catch (error) {
+      console.log("Login error:", error);
+      setServerError("نام کاربری یا رمز عبور اشتباه است");
     } finally {
       setLoading(false);
     }

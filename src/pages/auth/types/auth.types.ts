@@ -1,13 +1,9 @@
 export interface LoginFormData {
   username: string;
   password: string;
-  rememberMe: boolean;
+  rememberMe?: boolean;
 }
-export interface LoginResponse {
+export type LoginResponse = {
   access_token: string;
   token_type: string;
-  user: {
-    id: number;
-    username: string;
-  };
-}
+};

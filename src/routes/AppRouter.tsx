@@ -1,4 +1,5 @@
 import { createBrowserRouter, Navigate } from "react-router";
+import ProtectedRoute from "./components/ProtectedRoute ";
 
 // Layouts
 import UserLayout from "../layouts/UserLayout/UserLayout";
@@ -29,28 +30,36 @@ const router = createBrowserRouter([
 
   //? User Routes
   {
-    path: "/user",
-    element: <UserLayout />,
+    element: <ProtectedRoute />,
     children: [
       {
-        index: true,
-        element: <Navigate to="dashboard" replace />,
-      },
-      {
-        path: "dashboard",
-        element: <UserDashboard />,
-      },
-      {
-        path: "reports",
-        element: <UserReports />,
-      },
-      {
-        path: "requests",
-        element: <UserRequests />,
+        path: "/user",
+        element: <UserLayout />,
         children: [
           {
-            path: "new-request",
-            element: <NewRequest />,
+            index: true,
+            element: <Navigate to="dashboard" replace />,
+          },
+          {
+            path: "dashboard",
+            element: <UserDashboard />,
+          },
+          {
+            path: "reports",
+            element: <UserReports />,
+          },
+          {
+            path: "requests",
+            children: [
+              {
+                index: true,
+                element: <UserRequests />,
+              },
+              {
+                path: "new-request",
+                element: <NewRequest />,
+              },
+            ],
           },
         ],
       },
