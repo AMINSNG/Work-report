@@ -169,7 +169,7 @@ export default function ManagerReqDetail() {
             </div>
           </div>
 
-          <div className="w-full h-[2px] bg-[#E5EBEE]" />
+          <div className="w-full h-0.5 bg-[#E5EBEE]" />
 
           {/* آرشیو */}
           <button

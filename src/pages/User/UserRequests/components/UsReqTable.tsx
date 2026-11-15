@@ -4,6 +4,7 @@ import type { EmployeeRequest } from "../../../../types/employee.types";
 import { getErrorMessage } from "../../../../Utils/errorHandler";
 import CustomSelect from "./CustomSelect";
 import { useEffect, useState } from "react";
+import { formatStatus } from "../../../../Utils/formatStatus";
 
 export default function UsReqTable() {
   // const [selectedCategory, setSelectedCategory] = useState("all");
@@ -101,14 +102,14 @@ export default function UsReqTable() {
                           className={`inline-block font-bold px-3 py-2 rounded-xl ${
                             item.status === "sent"
                               ? "bg-[#E9F7F0] text-[#16845B]"
-                              : item.status === "درحال بررسی"
+                              : item.status === "pending"
                                 ? "bg-[#F4EFFB] text-[#7956AA]"
-                                : item.status === "ثبت شده"
+                                : item.status === "approved"
                                   ? "text-[#3268A6] bg-[#EDF4FF]"
                                   : "bg-bg-error text-error-red"
                           }`}
                         >
-                          {item.status}
+                          {formatStatus(item.status)}
                         </span>
                       </td>
                       <td className="p-2 text-green-icon">
