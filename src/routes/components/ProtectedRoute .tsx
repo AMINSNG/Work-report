@@ -1,12 +1,27 @@
 import { Navigate, Outlet } from "react-router";
+import { useAuth } from "../../context/useAuth";
 
-export default function ProtectedRoute() {
-  const token =
-    localStorage.getItem("access_token") ||
-    sessionStorage.getItem("access_token");
+type ProtectedRouteProps = {
+  allowedRoles: string[];
+};
 
-  if (!token) {
+export default function ProtectedRoute({ allowedRoles }: ProtectedRouteProps) {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <div>در حال بررسی اطلاعات کاربر...</div>;
+  }
+
+  if (!user) {
     return <Navigate to="/login" replace />;
+  }
+
+  if (!user.is_active) {
+    return <div>حساب کاربری شما غیرفعال است.</div>;
+  }
+
+  if (!allowedRoles.includes(user.role)) {
+    return <Navigate to="/unauthorized" replace />;
   }
 
   return <Outlet />;

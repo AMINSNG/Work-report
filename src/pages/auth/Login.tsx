@@ -3,6 +3,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import type { LoginFormData } from "./types/auth.types";
 import { LoginUser } from "../../services/authService";
+import { useAuth } from "../../context/useAuth";
+import { getProfile } from "../../services/userService";
+import { getErrorMessage } from "../../Utils/errorHandler";
+import toast from "react-hot-toast";
 
 type LoginErrors = {
   username?: string;
@@ -10,6 +14,7 @@ type LoginErrors = {
 };
 
 export default function Login() {
+  const { setUser } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState<LoginFormData>({
     username: "",
@@ -52,17 +57,46 @@ export default function Login() {
 
     try {
       const result = await LoginUser(formData);
+
       localStorage.removeItem("access_token");
       sessionStorage.removeItem("access_token");
 
       const storage = formData.rememberMe ? localStorage : sessionStorage;
 
       storage.setItem("access_token", result.access_token);
-      console.log("Login successful:", result);
-      navigate("/user/dashboard");
-    } catch (error) {
-      console.log("Login error:", error);
-      setServerError("نام کاربری یا رمز عبور اشتباه است");
+
+      const profile = await getProfile();
+
+      if (!profile.is_active) {
+        throw new Error("ACCOUNT_INACTIVE");
+      }
+
+      setUser(profile);
+
+      const roleRoutes: Record<string, string> = {
+        user: "/user/dashboard",
+        employee: "/user/dashboard",
+        manager: "/manager/dashboard",
+        admin: "/admin/dashboard",
+      };
+
+      const destination = roleRoutes[profile.role];
+
+      if (!destination) {
+        toast.error("نقش کاربری شما معتبر نیست.");
+        storage.removeItem("access_token");
+        setUser(null);
+        return;
+      }
+
+      toast.success("با موفقیت وارد سامانه شدید.");
+      navigate(destination, { replace: true });
+    } catch (error: unknown) {
+      localStorage.removeItem("access_token");
+      sessionStorage.removeItem("access_token");
+
+      setUser(null);
+      toast.error(getErrorMessage(error));
     } finally {
       setLoading(false);
     }
@@ -156,7 +190,7 @@ export default function Login() {
 
           {/* فراموشی به خاطر سپردن */}
           <div className=" flex justify-between px-2">
-            <button type="button" className="text-[#087F80]">
+            <button type="button" className="text-green-icon">
               فراموشی رمز عبور
             </button>
             <div className="flex  gap-1 items-center p-1">
@@ -181,7 +215,7 @@ export default function Login() {
             <button
               disabled={loading}
               className=" flex gap-2 justify-center items-center
-             text-white bg-[#087F80] p-3 rounded-[9px]"
+             text-white bg-green-icon p-3 rounded-[9px]"
             >
               <svg
                 className="w-3.5 "

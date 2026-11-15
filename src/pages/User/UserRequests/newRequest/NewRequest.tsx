@@ -1,6 +1,9 @@
 import CustomSelect from "../components/CustomSelect";
 import { useState } from "react";
 import { createRequest } from "../../../../services/employeeService";
+import toast from "react-hot-toast";
+import { getErrorMessage } from "../../../../Utils/errorHandler";
+import { NavLink } from "react-router";
 
 const categoryOptions = [
   { label: "تعمیرات", value: "تعمیرات" },
@@ -20,16 +23,17 @@ function NewRequest() {
   const [successMessage, setSuccessMessage] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectPriority, setSelelctPriority] = useState("عادی");
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     setServerError("");
     setSuccessMessage("");
 
-    if (!title.trim() || !description.trim()) {
-      setServerError("عنوان و توضیحات الزامی هستند.");
-      return;
-    }
+    // if (!title.trim() || !description.trim()) {
+    //   toast.error("عنوان و توضیحات الزامی هستند.");
+    //   return;
+    // }
 
     setLoading(true);
 
@@ -41,13 +45,13 @@ function NewRequest() {
 
       console.log("Request created:", result);
 
-      setSuccessMessage("درخواست با موفقیت ثبت شد.");
+      toast.success("درخواست با موفقیت ثبت شد.");
 
       setTitle("");
       setDescription("");
     } catch (error) {
       console.log("Create request error:", error);
-      setServerError("ثبت درخواست ناموفق بود.");
+      toast.error(getErrorMessage(error));
     } finally {
       setLoading(false);
     }
@@ -130,12 +134,13 @@ function NewRequest() {
             >
               {loading ? "در حال ثبت..." : "ثبت درخواست"}
             </button>
-            <button
+            <NavLink
+              to={"/user/requests"}
               type="button"
               className="py-2 px-6 border-2 border-[#E5EBEE] rounded-[10px] "
             >
               انصراف
-            </button>
+            </NavLink>
           </div>
         </form>
       </div>

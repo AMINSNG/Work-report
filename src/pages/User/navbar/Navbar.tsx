@@ -1,6 +1,19 @@
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
+import { useAuth } from "../../../context/useAuth";
 
 function Navbar() {
+  const { setUser, user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("access_token");
+    sessionStorage.removeItem("access_token");
+
+    setUser(null);
+
+    navigate("/login", { replace: true });
+  };
+
   return (
     <>
       <nav
@@ -106,6 +119,12 @@ function Navbar() {
 
         {/* user & notif */}
         <div className=" flex gap-3 items-center justify-between border-r border-white/20 px-4  ">
+          <button
+            onClick={handleLogout}
+            className="text-white hover:text-red-300 transition-colors"
+          >
+            خروج
+          </button>
           <div className=" w-fit h-fit p-3 rounded-[11px] bg-white/10 border border-white/25">
             <svg
               className="w-4"
@@ -124,25 +143,31 @@ function Navbar() {
           </div>
           <div className="flex gap-2  justify-between items-center px-3 py-2 rounded-[11px]  bg-white/10 border border-white/25">
             <span className="bg-button-iceberg rounded-[11px] w-fit h-fit  px-2 py-1  ">
-              اث
+              {user?.name?.slice(0, 2) || "کاربر"}
             </span>
             <div className="flex flex-col">
-              <span className="text-white text-[12px]">امین ثناگو</span>
-              <span className="text-gray-navbar text-[10px]">
-                کارمند · فناوری اطلاعات
+              <span className="text-white text-[15px]">
+                {" "}
+                {user?.name || "کاربر"}{" "}
+              </span>
+              <span className="text-gray-navbar text-[12px]">
+                {user?.role === "manager" ? "مدیر" : user?.role}
               </span>
             </div>
-            <div className="">
+            <div className=" text-white">
               <svg
-                className="w-3"
-                viewBox="0 0 6 5"
-                fill="none"
                 xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="lucide lucide-chevron-down preview-icon"
               >
-                <path
-                  d="M2.53491 4.88799L-8.59499e-05 -1.52588e-05H1.05291L2.66491 3.19798L4.27691 -1.52588e-05H5.32991L2.79491 4.88799H2.53491Z"
-                  fill="#B9D2D7"
-                />
+                <path d="m6 9 6 6 6-6" />
               </svg>
             </div>
           </div>

@@ -3,7 +3,7 @@ import ProtectedRoute from "./components/ProtectedRoute ";
 
 // Layouts
 import UserLayout from "../layouts/UserLayout/UserLayout";
-// import ManagerLayout from "../layouts/ManagerLayout";
+import ManagerLayout from "../layouts/ManagerLayout/ManagerLayout";
 // import AdminLayout from "../layouts/AdminLayout";
 
 // Auth
@@ -15,8 +15,10 @@ import UserReports from "../pages/User/UserReports/UserReports";
 import UserRequests from "../pages/User/UserRequests/UserRequests";
 import NewRequest from "../pages/User/UserRequests/newRequest/NewRequest";
 
-// // Manager Pages
-// import ManagerDashboard from "../pages/Manager/Dashboard/Dashboard";
+// Manager Pages
+import ManagerDashboard from "../pages/Manager/ManagerDashboard/ManagerDashboard";
+import ManagerReq from "../pages/Manager/ManagerReq/ManagerReq";
+import ManagerReqDetail from "../pages/Manager/ManagerReqDetail/ManagerReqDetail";
 
 // // Admin Pages
 // import AdminDashboard from "../pages/Admin/Dashboard/Dashboard";
@@ -30,7 +32,7 @@ const router = createBrowserRouter([
 
   //? User Routes
   {
-    element: <ProtectedRoute />,
+    element: <ProtectedRoute allowedRoles={["employee", "user"]} />,
     children: [
       {
         path: "/user",
@@ -68,20 +70,34 @@ const router = createBrowserRouter([
 
   //? Manager Routes
 
-  //   {
-  //     path: "/manager",
-  //     element: <ManagerLayout />,
-  //     children: [
-  //       {
-  //         index: true,
-  //         element: <Navigate to="dashboard" replace />,
-  //       },
-  //       {
-  //         path: "dashboard",
-  //         element: <ManagerDashboard />,
-  //       },
-  //     ],
-  //   },
+  {
+    element: <ProtectedRoute allowedRoles={["manager"]} />,
+    children: [
+      {
+        path: "/manager",
+        element: <ManagerLayout />,
+        children: [
+          {
+            path: "dashboard",
+            element: <ManagerDashboard />,
+          },
+          {
+            path: "requests",
+            children: [
+              {
+                index: true,
+                element: <ManagerReq />,
+              },
+              {
+                path: ":requestId",
+                element: <ManagerReqDetail />,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 
   //? Admin Routes
 
