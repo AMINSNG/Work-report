@@ -16,6 +16,8 @@
   --color-gray-200: #e5e7eb;
 }
 
+
+
 @font-face {
   font-family: "IRANSansX";
   src: url("./assets/fonts/IRANSansX-Regular.ttf") format("truetype");
@@ -32,4 +34,7 @@
 
 body {
   font-family: "IRANSansX", sans-serif;
+}
+li{
+  cursor: pointer;
 }
