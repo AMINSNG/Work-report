@@ -20,7 +20,7 @@ export function getErrorMessage(error: unknown): string {
         return "اطلاعات موردنظر پیدا نشد.";
 
       case 422:
-        return "لطفا فبلد های الزامی را درست پر کیند";
+        return "لطفا فبلد های الزامی را بدرستی پر کیند";
 
       case 500:
         return "خطای داخلی سرور.";

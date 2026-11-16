@@ -72,12 +72,14 @@ export default function UsReqTable() {
             </thead>
             <tbody>
               {loading ? (
-                <td
-                  colSpan={6}
-                  className="text-center py-10 bg-white text-gray-400"
-                >
-                  در حال بارگذاری
-                </td>
+                <tr>
+                  <td
+                    colSpan={6}
+                    className="text-center py-10 bg-white text-gray-400"
+                  >
+                    در حال بارگذاری
+                  </td>
+                </tr>
               ) : filteredReports.length > 0 ? (
                 filteredReports.map((item) => {
                   return (
