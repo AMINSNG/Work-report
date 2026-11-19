@@ -93,11 +93,9 @@ export default function ManagerReq() {
                           className={`inline-block font-bold px-3 py-2 rounded-xl ${
                             item.status === "sent"
                               ? "bg-[#E9F7F0] text-[#16845B]"
-                              : item.status === "pending"
-                                ? "bg-[#F4EFFB] text-[#7956AA]"
-                                : item.status === "approved"
-                                  ? "text-[#3268A6] bg-[#EDF4FF]"
-                                  : "bg-bg-error text-error-red"
+                              : item.status === "approved"
+                                ? "text-[#3268A6] bg-[#EDF4FF]"
+                                : "bg-bg-error text-error-red"
                           }`}
                         >
                           {formatStatus(item.status)}

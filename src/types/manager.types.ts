@@ -4,7 +4,7 @@ export type ManagerRequest = {
   manager_id: number;
   title: string;
   description: string;
-  status: string;
+  status: "sent" | "rejected" | "approved";
   is_archived: boolean;
   created_at: string;
 };

@@ -16,16 +16,16 @@ export default function UsReqTable() {
   const statusOptions = [
     { label: "همه وضعیت‌ها", value: "all" },
     { label: "ثبت شده", value: "sent" },
+    { label: "رد شده", value: "rejected" },
+    { label: "تایید شده", value: "approved" },
   ];
   useEffect(() => {
-    setTimeout(() => {
-      getMyRequests()
-        .then(setRequests)
-        .catch((error: unknown) => {
-          toast.error(getErrorMessage(error));
-        })
-        .finally(() => setLoading(false));
-    }, 1000);
+    getMyRequests()
+      .then(setRequests)
+      .catch((error: unknown) => {
+        toast.error(getErrorMessage(error));
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   const filteredReports = requests.filter((item) => {
@@ -104,11 +104,9 @@ export default function UsReqTable() {
                           className={`inline-block font-bold px-3 py-2 rounded-xl ${
                             item.status === "sent"
                               ? "bg-[#E9F7F0] text-[#16845B]"
-                              : item.status === "pending"
-                                ? "bg-[#F4EFFB] text-[#7956AA]"
-                                : item.status === "approved"
-                                  ? "text-[#3268A6] bg-[#EDF4FF]"
-                                  : "bg-bg-error text-error-red"
+                              : item.status === "approved"
+                                ? "text-[#3268A6] bg-[#EDF4FF]"
+                                : "bg-bg-error text-error-red"
                           }`}
                         >
                           {formatStatus(item.status)}

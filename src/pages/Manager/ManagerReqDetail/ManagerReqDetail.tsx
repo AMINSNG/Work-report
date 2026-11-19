@@ -154,7 +154,7 @@ export default function ManagerReqDetail() {
                 onClick={() => handleStatusChange("approved")}
                 className="bg-green-100 text-green-700 px-5 py-2 rounded-lg disabled:opacity-50"
               >
-                تأیید شده
+                تأییدکردن
               </button>
 
               <button
@@ -162,7 +162,7 @@ export default function ManagerReqDetail() {
                 onClick={() => handleStatusChange("rejected")}
                 className="bg-red-100 text-red-700 px-5 py-2 rounded-lg disabled:opacity-50"
               >
-                رد شده
+                ردکردن
               </button>
             </div>
           </div>
