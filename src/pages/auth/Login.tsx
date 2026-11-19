@@ -1,11 +1,11 @@
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import type { LoginFormData } from "./types/auth.types";
+import type { LoginFormData } from "../../types/auth.types";
 import { LoginUser } from "../../services/authService";
 import { useAuth } from "../../context/useAuth";
 import { getProfile } from "../../services/userService";
-import { getErrorMessage } from "../../Utils/errorHandler";
+import { getErrorMessage } from "../../utils/errorHandler";
 import toast from "react-hot-toast";
 
 type LoginErrors = {

@@ -5,7 +5,7 @@ import {
   getManagerRequests,
 } from "../../../services/managerService";
 import type { ManagerRequest } from "../../../types/manager.types";
-import { formatStatus } from "../../../Utils/formatStatus";
+import { formatStatus } from "../../../utils/formatStatus";
 
 export default function ManagerReq() {
   const [requests, setRequests] = useState<ManagerRequest[]>([]);

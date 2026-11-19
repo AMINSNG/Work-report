@@ -19,18 +19,12 @@ export default function CustomSelect({
 }: CustomSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  //   const options = [
-  //     { label: "همه دسته‌بندی‌ها", value: "all" },
-  //     { label: "تعمیرات", value: "تعمیرات" },
-  //     { label: "مرخصی", value: "مرخصی" },
-  //     { label: "پشتیبانی", value: "پشتیبانی" },
-  //   ];
-
   const selectedOption = options.find((option) => option.value === selected);
 
   return (
     <div className="relative w-56  ">
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex justify-between p-3 border-2 border-[#DFE6E9] rounded-xl"
       >
@@ -45,6 +39,7 @@ export default function CustomSelect({
         >
           {options.map((option) => (
             <button
+              type="button"
               key={option.value}
               onClick={() => {
                 onChange(option.value);

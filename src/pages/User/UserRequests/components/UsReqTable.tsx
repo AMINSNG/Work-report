@@ -1,10 +1,10 @@
 import toast from "react-hot-toast";
 import { getMyRequests } from "../../../../services/employeeService";
 import type { EmployeeRequest } from "../../../../types/employee.types";
-import { getErrorMessage } from "../../../../Utils/errorHandler";
+import { getErrorMessage } from "../../../../utils/errorHandler";
 import CustomSelect from "./CustomSelect";
 import { useEffect, useState } from "react";
-import { formatStatus } from "../../../../Utils/formatStatus";
+import { formatStatus } from "../../../../utils/formatStatus";
 
 export default function UsReqTable() {
   // const [selectedCategory, setSelectedCategory] = useState("all");
@@ -74,7 +74,7 @@ export default function UsReqTable() {
               {loading ? (
                 <tr>
                   <td
-                    colSpan={6}
+                    colSpan={5}
                     className="text-center py-10 bg-white text-gray-400"
                   >
                     در حال بارگذاری
@@ -130,7 +130,7 @@ export default function UsReqTable() {
               ) : (
                 <tr>
                   <td
-                    colSpan={6}
+                    colSpan={5}
                     className="text-center py-10 bg-white text-gray-400"
                   >
                     داده‌ای یافت نشد.

@@ -8,7 +8,7 @@ import {
   updateRequestStatus,
 } from "../../../services/managerService";
 import toast from "react-hot-toast";
-import { getErrorMessage } from "../../../Utils/errorHandler";
+import { getErrorMessage } from "../../../utils/errorHandler";
 
 export default function ManagerReqDetail() {
   const { requestId } = useParams();
@@ -17,7 +17,6 @@ export default function ManagerReqDetail() {
   const [request, setRequest] = useState<ManagerRequest | null>(null);
   const [loading, setLoading] = useState(true);
 
- 
   useEffect(() => {
     Promise.all([getManagerRequests(), getArchivedRequests()])
       .then(([normalRequests, archivedRequests]) => {
@@ -32,7 +31,6 @@ export default function ManagerReqDetail() {
       .catch((error) => console.log(error))
       .finally(() => setLoading(false));
   }, [requestId]);
-  
 
   const handleStatusChange = async (status: string) => {
     if (!request) return;

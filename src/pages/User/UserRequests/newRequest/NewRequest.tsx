@@ -2,7 +2,7 @@ import CustomSelect from "../components/CustomSelect";
 import { useState } from "react";
 import { createRequest } from "../../../../services/employeeService";
 import toast from "react-hot-toast";
-import { getErrorMessage } from "../../../../Utils/errorHandler";
+import { getErrorMessage } from "../../../../utils/errorHandler";
 import { NavLink } from "react-router";
 
 const categoryOptions = [
@@ -113,10 +113,10 @@ function NewRequest() {
             id="responsible"
             type="text"
           />
-          <label htmlFor="responsible">فرستنده</label>
+          <label htmlFor="user">فرستنده</label>
           <input
             className="border-2 p-2 border-[#DFE6E9] rounded-xl"
-            id="responsible"
+            id="user"
             type="text"
             placeholder=""
           />
